@@ -17,7 +17,7 @@ void horde_default() {
   delay(8000);
   float startR, startG, startB;
   measureLight(&startR, &startG, &startB);
-  delay(10800); //8500 for less laggy, bit of an issue, 9100 for laggier like vulpix
+  delay(10500); //8500 for less laggy, bit of an issue, 9100 for laggier like vulpix
   //10200 for oras
   float endR, endG, endB;
   measureLight(&endR, &endG, &endB);
@@ -28,6 +28,60 @@ void horde_default() {
   right();
   a();
   delay(8000); //6500 for lower levels, implement run away pokemon, 8500 for laaag
+}
+
+void horde_new() {
+  double loopTime = 0;
+  double timeTaken;
+  x();
+  a();
+  delay(200);
+  //Serial.print("Entering X menu: ");
+  timeTaken = getTransition(3000);
+  loopTime += timeTaken;
+  //Serial.println(timeTaken); //1.15
+  down();
+  a();
+  down();
+  a();
+  a();
+  delay(200);
+  //Serial.print("Sweet scent: ");
+  timeTaken = getTransition(3000);
+  loopTime += timeTaken;
+  //Serial.println(timeTaken);
+  delay(200);
+  //Serial.print("SS animation: ");
+  timeTaken = getBlackScreen(8000);
+  loopTime += timeTaken;
+  //Serial.println(timeTaken);
+  delay(200);
+  //Serial.print("Shiny measurement: ");
+  timeTaken = getTransition(30000, 2, true);
+  loopTime += timeTaken;
+  Serial.println(timeTaken);
+  if (timeBuckets.add(timeTaken)) {
+    onShinyFound();
+  }
+  left();
+  right();
+  a();
+  delay(400);
+  //Serial.print("Run fuzzy screen: ");
+  timeTaken = getBlackScreen(8000);
+  loopTime += timeTaken;
+  //Serial.println(timeTaken);
+  delay(200);
+  //Serial.print("Run black screen: ");
+  timeTaken = getTransition(4000);
+  loopTime += timeTaken;
+  //Serial.println(timeTaken);
+  delay(200);
+  //Serial.print("Main menu fuzzy: ");
+  timeTaken = getTransition(2000, 1);
+  loopTime += timeTaken;
+  //Serial.println(timeTaken);
+  //Serial.print("> Total Loop Time: "); Serial.println(loopTime);
 }
 
 /*
@@ -98,12 +152,7 @@ void grass_default() {
  * approx 13.84 hrs per shiny
  */
 void hyperspace_default() {
-  a();
-  delay(2250);
-  a();
-  delay(4250);
-  a();
-  delay(5500);
+  
   a();
   delay(1000);
   a();
@@ -114,7 +163,7 @@ void hyperspace_default() {
   delay(2000);
   float startR, startG, startB;
   measureLight(&startR, &startG, &startB);
-  delay(9500); //8500 for faster
+  delay(9750); //8500 for faster
   float endR, endG, endB;
   measureLight(&endR, &endG, &endB);
   if (!detectTransition(startR, startG, startB, endR, endG, endB)) {
@@ -122,6 +171,12 @@ void hyperspace_default() {
   }
   softReset();
   delay(12500);
+  a();
+  delay(2250);
+  a();
+  delay(4250);
+  a();
+  delay(5500);
 }
 
 /*
@@ -181,10 +236,12 @@ void switchToTester() {
   a();
   b();
   delay(2500);
-  up();
-  a();
-  delay(2000);
-  a();
-  delay(8000);
-  softReset();
+//  up();
+//  a();
+//  delay(2000);
+//  a();
+//  delay(8000);
+//  softReset();
+  b();
+  delay(1500);
 }
