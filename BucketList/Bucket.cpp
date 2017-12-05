@@ -27,7 +27,9 @@ void Bucket::clearData() {
     }
 }
 
-/* add a new value to the bucket
+/* add a new value to the bucket, accepts a double representing the value to add
+ * if adding another value would overflow the capacity of the bucket, deletes the oldest value from the bucket
+ * and then adds the new value
  */
 void Bucket::add(double val) {
     ListNode* node = new ListNode(val);
@@ -49,6 +51,8 @@ void Bucket::add(double val) {
     }
 }
 
+/* calculates and returns the average of all the values in the bucket
+ */
 double Bucket::average() {
     double total = 0;
     ListNode* temp = front;
@@ -59,6 +63,9 @@ double Bucket::average() {
     return total / size;
 }
 
+/* prints the bucket to Arduino's Serial monitor
+ * I would've made this return a string but C strings are disgusting abominiations
+ */
 void Bucket::toString() {
     Serial.print("{");
     if (front != nullptr) {
