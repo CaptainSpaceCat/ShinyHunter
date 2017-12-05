@@ -13,11 +13,14 @@ Bucket::Bucket(int c) {
     capacity = c;
 }
 
+/* destructor, deletes this bucket and all of its data
+ */
 Bucket::~Bucket() {
     clearData();
 }
 
-
+/* clears all of the data used by this object and frees up any used memory
+ */
 void Bucket::clearData() {
     ListNode* temp = front;
     while (temp != nullptr) {
