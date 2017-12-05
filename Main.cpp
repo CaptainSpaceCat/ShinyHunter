@@ -1,5 +1,6 @@
 #include <Servo.h>
 #include "Adafruit_TCS34725.h"
+#include "BucketList.h"
 
 int numLoops = 0;
 
@@ -13,13 +14,15 @@ int numLoops = 0;
 #define pinDR 8
 #define pinStart 9
 //10 - 
-#define errorLED 11 //TODO: make sure this is an open pin
+#define errorLED 11
 #define shinyLED 12
 #define switchDetector 13
 
 Servo servoAX, servoBY, servoUL, servoDR, servoStart;
 
-int posAX[] = {105, 42, 178}; //A <-> X
+BucketList timeBuckets(5, 1.4);
+
+int posAX[] = {105, 36, 178}; //A <-> X
 int posBY[] = {90, 30, 155};
 int posUL[] = {90, 70, 115};
 int posDR[] = {90, 65, 105};
@@ -46,7 +49,8 @@ void setup() {
   if (DEBUG) {
     Serial.begin(9600);
   }
-
+  
+  
   pinMode(switchDetector, INPUT);
   pinMode(shinyLED, OUTPUT);
   digitalWrite(shinyLED, LOW);
@@ -65,8 +69,11 @@ void setup() {
 /* optional |
             V */
   //switchToTester();
+  delay(200);
+  
 
   waitForStart();
+  Serial.println("Starting hunt!");
 }
 
 /*
@@ -78,5 +85,5 @@ void loop() {
   if (DEBUG) {
     Serial.print("Starting Loop: "); Serial.println(numLoops);Serial.println();
   }
-  hyperspace_default();
+  horde_new();
 }
